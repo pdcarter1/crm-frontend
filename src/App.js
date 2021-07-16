@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { DefaultLayout } from './loayout/DefaultLayout';
-import { Dashboard } from './pages/login/dashboard/Dashboard.page';
+import { Dashboard } from './pages/dashboard/Dashboard.page';
 //import { Login } from './pages/login/login.page';
 
 function App() {
@@ -13,6 +13,6 @@ function App() {
       </DefaultLayout> />    
     </div>
   );
-}
+};
 
 export default App;
