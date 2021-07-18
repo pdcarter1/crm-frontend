@@ -5,7 +5,7 @@ import logo from '../../assets/img/logo.png';
 export const Header = () => {
     return (
         <Navbar
-            CollapseOnClick
+            collapseOnSelect
             bg="info"
             variant="dark"
             expand="md"

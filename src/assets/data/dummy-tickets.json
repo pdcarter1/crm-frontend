@@ -3,13 +3,13 @@
         "id": 1,
         "subject": "Client ssl issues",
         "status": "Client response pending",
-        "addedAt": "2021-07-16"
+        "addedAt": "2021-07-18"
     },
     {
         "id": 2,
-        "subject": "Client ssl issues",
-        "status": "Client response pending",
-        "addedAt": "2021-07-16"
+        "subject": "Cant see home page",
+        "status": "trouble viewing the home page",
+        "addedAt": "2021-07-18"
     },
     {
         "id": 3,
@@ -19,8 +19,8 @@
     },
     {
         "id": 4,
-        "subject": "Client ssl issues",
-        "status": "Client response pending",
+        "subject": "Another SSL issue",
+        "status": "401 cant find page error",
         "addedAt": "2021-05-16"
     },
     {
@@ -37,14 +37,14 @@
     },
     {
         "id": 7,
-        "subject": "Client ssl issues",
-        "status": "Client response pending",
+        "subject": "Client funny issues",
+        "status": "Turn Off and On",
         "addedAt": "2021-07-12"
     },
     {
         "id": 8,
-        "subject": "Client ssl issues",
-        "status": "Client response pending",
+        "subject": "What Client issues",
+        "status": "No Response from Server",
         "addedAt": "2021-07-14"
     },
     {
