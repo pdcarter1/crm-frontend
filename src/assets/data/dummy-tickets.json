@@ -3,7 +3,24 @@
         "id": 1,
         "subject": "Client ssl issues",
         "status": "Client response pending",
-        "addedAt": "2021-07-18"
+        "addedAt": "2021-07-18",
+        "history": [
+            {
+                "date": "20-10-10",
+                "message": "app crashing",
+                "messageBy": "client"
+            },
+            {
+                "date": "20-10-10",
+                "message": "turn if off and then on again",
+                "messageBy": "operator"
+            },
+            {
+                "date": "20-10-10",
+                "message": "are you kidding me",
+                "messageBy": "client"
+            }
+        ]
     },
     {
         "id": 2,
