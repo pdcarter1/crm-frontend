@@ -1,5 +1,5 @@
 import React from 'react';
-import {Jumbotron, Form,Row, Col, Button} from 'react-bootstrap';
+import {Jumbotron, Form, Row, Col, Button} from 'react-bootstrap';
 import propTypes from 'prop-types';
 import './add-ticket-form.style.css';
 
@@ -48,7 +48,7 @@ export const AddTicketForm = ({ handleOnSubmit, handleOnChange, frmDataError, fr
             required
           />
         </Form.Group>
-        <Button type="submit" variant="info" block>Login</Button>
+        <Button type="submit" variant="info" block>Open Ticket</Button>
       </Form>
     </Jumbotron>
   );

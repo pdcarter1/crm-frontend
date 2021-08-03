@@ -1,9 +1,10 @@
 import React from 'react';
 import {Table} from 'react-bootstrap';
 import propTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 export const TicketTable = ({tickets}) => {
-  //if(!tickets.length)
+  
   return  (<Table striped boardered="true" hover>
     <thead>
       <tr>
@@ -12,27 +13,30 @@ export const TicketTable = ({tickets}) => {
         <th>Status</th>
         <th>Opened Date</th>
       </tr>
-    </thead>
-    <tbody>
-      {tickets.length ? ( 
-        tickets.map((row) =>
-          <tr key={row.id}>
-            <td>{row.id}</td>
-            <td>{row.subject}</td>
-            <td>{row.status}</td>
-            <td>{row.addedAt}</td>                
-          </tr>
-        )) : (
+      </thead>
+      <tbody>
+        {tickets.length ? ( 
+          tickets.map((row) => (
+            <tr key={row.id}>
+              <td>{row.id}</td>
+              <td>
+                <Link to={`/ticket/${row.id}`}>{row.subject}</Link>
+                </td>
+                <td>{row.status}</td>
+                <td>{row.addedAt}</td>
+            </tr>
+        ))
+        ) : (
         <tr>
           <td colSpan="4" className="text-center">
-                        No ticket show{' '}
+            No ticket show{' '}
           </td>
         </tr>
-      )
-      }            
+        )
+        }            
     </tbody>
-  </Table>);    
-};
+  </Table>);
+  };
 
 TicketTable.propTypes = {
   tickets: propTypes.array.isRequired,
