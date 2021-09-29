@@ -1,8 +1,23 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+it('Find logon button', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByText('Forgot Password')).toBeInTheDocument();
+});
+
+it('Find Email Address', () => {
+  render(<App />);
+  expect(screen.getByText('Email Address')).toBeInTheDocument();
+});
+
+it('Find Password', () => {
+  render(<App />);
+  expect(screen.getByText('Password')).toBeInTheDocument();
+});
+
+it('Find Forgot Password', () => {
+  render(<App />);
+  expect(screen.getByText('Forgot Password')).toBeInTheDocument();
 });
