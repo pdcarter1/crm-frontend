@@ -17,11 +17,23 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Login />
+          </Route>  
+          <PrivateRoute exact path="/dashboard">
+            <Dashboard />
+          </PrivateRoute>
+          <PrivateRoute exact path="/add-ticket">
+            <AddTicket />
+          </PrivateRoute>
+          <PrivateRoute exact path="/ticket/:tId">
+            <Ticket />
+          </PrivateRoute>
+          <PrivateRoute exact path="/tickets">
+            <TicketLists />
+          </PrivateRoute>
+
+          <Route path="*">
+            <h1>404 Page not found</h1>
           </Route>
-            <PrivateRoute path="/dashboard"><Dashboard /></PrivateRoute>
-            <PrivateRoute path="/add-ticket"><AddTicket /></PrivateRoute>
-            <PrivateRoute path="/tickets"><TicketLists /></PrivateRoute>
-            <PrivateRoute path="/ticket/:tId"><Ticket /></PrivateRoute>
         </Switch>
       </Router>
     </div>

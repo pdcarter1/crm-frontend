@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Container, Row, Col, Form, Button, Spinner, Alert} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import { getUserProfile } from "../../pages/dashboard/userAction";
 
 import { loginPending, loginSuccess, loginFail } from './loginSlice';
 import {userLogin} from '../../api/userApi';
@@ -12,8 +13,13 @@ export const LoginForm = ({ formSwitcher}) => {
   const history = useHistory();
 
   const {isLoading, isAuth, error} = useSelector(state => state.login);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  
+  useEffect(() => {
+    (sessionStorage.getItem("accessJWT")) && history.push("/dashboard");
+  }, [history, isAuth]);
+
+  const [email, setEmail] = useState('adam.carter@test.co.nz');
+  const [password, setPassword] = useState('secret1234');
 
   const handleOnChange = e => {
     const { name, value } = e.target;
@@ -46,6 +52,7 @@ export const LoginForm = ({ formSwitcher}) => {
       }
 
       dispatch(loginSuccess());
+      dispatch(getUserProfile());
       history.push('/dashboard');
     } catch (error) {
       dispatch(loginFail(error.message));
@@ -69,6 +76,7 @@ export const LoginForm = ({ formSwitcher}) => {
                 value={email}
                 onChange={handleOnChange}
                 placeholder="Enter Email"
+                autoComplete="email"
                 required
               />                            
             </Form.Group>
@@ -80,6 +88,7 @@ export const LoginForm = ({ formSwitcher}) => {
                 value={password}
                 onChange={handleOnChange}
                 placeholder="Password"
+                autoComplete="password"
                 required
               />                          
             </Form.Group>
