@@ -5,6 +5,8 @@ const initialState = {
     isLoading: false,
     error: '',
     searchTicketList: [],
+    selectedTicket: {},
+    replyMsg: '',
 };
 
 const ticketListSlice = createSlice({
@@ -19,7 +21,7 @@ const ticketListSlice = createSlice({
             state.searchTicketList = action.payload;
             state.isLoading = false;
         },
-        fetchTicketFail: (state, {payload}) => {
+        fetchTicketFail: (state, { payload }) => {
             state.isLoading = false;
             state.error = { payload };
         },
@@ -30,6 +32,42 @@ const ticketListSlice = createSlice({
                 return row.subject.toLowerCase().includes(payload.toLowerCase());
             });
         },
+        fetchSingleTicketLoading: (state) => {
+            state.isLoading = true;
+        },
+        fetchSingleTicketSuccess: (state, {payload}) => {
+            state.selectedTicket = payload;
+            state.isLoading = false;
+            state.error = "";
+        },
+        fetchSingleTicketFail: (state, { payload }) => {
+            state.isLoading = false;
+            state.error = { payload };
+        },
+        replyTicketLoading: (state) => {
+            state.isLoading = true;
+        },
+        replyTicketSuccess: (state, { payload } ) => {
+            state.isLoading = false;
+            state.error = "";
+            state.replyMsg = payload;
+        },
+        replyTicketFail: (state, { payload }) => {
+            state.isLoading = false;
+            state.error = payload;
+        },
+        closeTicketLoading: (state) => {
+            state.isLoading = true;
+        },
+        closeTicketSuccess: (state, { payload }) => {
+            state.isLoading = false;
+            state.error = "";
+            state.replyMsg = payload;
+        },
+        closeTicketFail: (state, { payload }) => {
+            state.isLoading = false;
+            state.error = payload;
+        },
     },
 });
 
@@ -39,7 +77,16 @@ export const {
     fetchTicketFail, 
     fetchTicketLoading, 
     fetchTicketSuccess,
-    searchTickets
+    searchTickets,
+    fetchSingleTicketFail,
+    fetchSingleTicketLoading,
+    fetchSingleTicketSuccess,
+    replyTicketLoading,
+    replyTicketSuccess,
+    replyTicketFail,
+    closeTicketLoading,
+    closeTicketSuccess,
+    closeTicketFail,
 } = actions
 
 export default reducer;

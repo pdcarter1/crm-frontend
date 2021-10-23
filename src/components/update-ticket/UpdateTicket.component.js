@@ -1,14 +1,36 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import { ReplyOnTicket } from "../../pages/ticket-list/ticketsAction";
 
-export const UpdateTicket = ({ msg, handleOnChange, handleOnSubmit}) => {
+export const UpdateTicket = ({_id}) => {
+  
+  const dispatch = useDispatch();
+  const { user:{name} } = useSelector(state => state.user);
+  const [message, setMessage] = useState('');
+  
+  const handleOnChange = e => {
+    setMessage(e.target.value);
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    const msgObj = {
+      message,
+      sender: name
+    }
+    dispatch(ReplyOnTicket(_id, msgObj));
+    setMessage("");
+  };
+
   return (
+    
     <Form onSubmit={handleOnSubmit}>
       <Form.Label>Reply</Form.Label>
       <Form.Text>Please reply to the users message here or update the ticket</Form.Text>
       <Form.Control            
-        value={msg}
+        value={message}
         onChange={handleOnChange}
         as="textarea" 
         row="5" 
@@ -18,11 +40,10 @@ export const UpdateTicket = ({ msg, handleOnChange, handleOnSubmit}) => {
         <Button variant="info" type="submit" >Reply</Button>
       </div>            
     </Form>
+    
   );
 };
 
-UpdateTicket.propTypes = {
-  msg: PropTypes.string.isRequired,
-  handleOnChange: PropTypes.func.isRequired,
-  handleOnSubmit: PropTypes.func.isRequired,
+UpdateTicket.propTypes = {  
+  _id: PropTypes.string.isRequired,  
 };
