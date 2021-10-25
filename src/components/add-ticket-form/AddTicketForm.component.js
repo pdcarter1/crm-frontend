@@ -1,14 +1,67 @@
-import React from 'react';
-import {Jumbotron, Form, Row, Col, Button} from 'react-bootstrap';
-import propTypes from 'prop-types';
+import React, { useEffect, useState }  from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { Jumbotron, Form, Row, Col, Button, Spinner, Alert } from 'react-bootstrap';
+// import propTypes from 'prop-types';
+
+import { openNewTicket } from './addTicketAction';
+import { shortText } from '../../utils/validation';
+
 import './add-ticket-form.style.css';
 
-export const AddTicketForm = ({ handleOnSubmit, handleOnChange, frmDataError, frmData}) => {
-  console.log(frmData);
+
+const initialFormData = {
+  subject: "",
+  issueDate: "",
+  message: "",
+};
+const initialFormDataError = {
+  subject: false,
+  issueDate: false,
+  message: false,
+};
+
+export const AddTicketForm = () => {
+  const dispatch = useDispatch();
+  const {user: {name}} = useSelector(state => state.user);
+  const { isLoading, error, successMsg } = useSelector(state => state.openTicket);
+
+  const [frmData, setfrmData] = useState(initialFormData);
+  const [frmDataError, setfrmDataError] = useState(initialFormDataError);
+  useEffect(() => { }, [frmData, frmDataError]);
+
+  const handleOnChange = e => {
+    const { name, value } = e.target;
+    setfrmData({
+      ...frmData,
+      [name]: value,
+
+    });
+  };
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+
+    setfrmDataError(initialFormDataError);
+
+    const isSubjectValid = await shortText(frmData.subject);
+
+    setfrmDataError({
+      ...initialFormDataError,
+      subject: !isSubjectValid
+    });
+    dispatch(openNewTicket({...frmData,sender: name}));
+  };
+
+
   return (
     <Jumbotron className="mt=3 add-new-ticket bg-light">
       <h1 className="text-info text-center">Add New Ticket</h1>
       <hr/>
+      <div>
+        {error && <Alert variant="danger">{error}</Alert>}
+        {successMsg && <Alert variant="primary">{successMsg}</Alert>}
+        {isLoading && <Spinner variant="primary" animation="border"/>}
+      </div>
       <Form autoComplete="off" onSubmit={handleOnSubmit}>
         <Form.Group as={Row}>
           <Form.Label column sm={3}>Subject</Form.Label>
@@ -41,9 +94,9 @@ export const AddTicketForm = ({ handleOnSubmit, handleOnChange, frmDataError, fr
           <Form.Label>Details</Form.Label>
           <Form.Control
             as="textarea"
-            name="detail"
+            name="message"
             rows="5"
-            value={frmData.detail}
+            value={frmData.message}
             onChange={handleOnChange}
             required
           />
@@ -53,9 +106,9 @@ export const AddTicketForm = ({ handleOnSubmit, handleOnChange, frmDataError, fr
     </Jumbotron>
   );
 };
-AddTicketForm.prototype = {
-  handleOnSubmit: propTypes.func.isRequired,
-  handleOnChange: propTypes.func.isRequired,
-  frmDataError: propTypes.func.isRequired,
-  frmData: propTypes.object.isRequired,    
-};
+// AddTicketForm.prototype = {
+//   handleOnSubmit: propTypes.func.isRequired,
+//   handleOnChange: propTypes.func.isRequired,
+//   frmDataError: propTypes.func.isRequired,
+//   frmData: propTypes.object.isRequired,    
+// };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {Container, Row, Col, Button, Spinner, Alert} from 'react-bootstrap';
 import { PageBreadcrumb } from '../../components/breadcrumb/Breadcrumb.component';
@@ -11,10 +11,10 @@ import { fetchSingleTicket, closeTicket } from '../ticket-list/ticketsAction';
 // const ticket = tickets[0];
 
 export const Ticket = () => {
-  const { replyMsg } = useSelector(state => state.tickets);
+  //const { replyMsg } = useSelector(state => state.tickets);
   const {tId} = useParams();
   const dispatch = useDispatch();
-  const {isLoading, error, selectedTicket} = useSelector(state => state.tickets);
+  const { isLoading, error, selectedTicket, replyMsg, replyTicketError} = useSelector(state => state.tickets);
   
  
   useEffect(() => {
@@ -32,6 +32,7 @@ export const Ticket = () => {
         <Col>
           {isLoading && <Spinner variant='primary' animation="border" />}
           {error && <Alert variant="danger">{error}</Alert>}
+          {replyTicketError && <Alert variant="danger">{replyTicketError}</Alert>}          
           {replyMsg && <Alert variant="success">{replyMsg}</Alert>}
         </Col>
       </Row>
